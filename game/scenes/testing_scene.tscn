@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://dibc0okd7rqwd"]
+
+[ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://addons/proto_controller/proto_controller.tscn" id="1_ifns1"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_365ag"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_ifns1"]
+sky_material = SubResource("ProceduralSkyMaterial_365ag")
+
+[sub_resource type="Environment" id="Environment_2j2p2"]
+background_mode = 2
+sky = SubResource("Sky_ifns1")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_ifns1"]
+size = Vector3(30, 0.5, 30)
+
+[node name="testing_scene" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_2j2p2")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, -0.5, 15.4821, 1)
+shadow_enabled = true
+
+[node name="ProtoController" parent="." instance=ExtResource("1_ifns1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.75935, 10.5, 8.80991)
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 9.5, 1)
+use_collision = true
+mesh = SubResource("BoxMesh_ifns1")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(2.4, 0, 0, 0, 1, 0, 0, 0, 0.4, -0.5, 10.5, 1)
