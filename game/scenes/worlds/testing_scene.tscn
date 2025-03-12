@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://dibc0okd7rqwd"]
+
+[ext_resource type="Texture2D" uid="uid://53xeg6128goo" path="res://addons/grid.png" id="1_sqopv"]
+[ext_resource type="PackedScene" uid="uid://b2hdpklg74r65" path="res://scenes/player/player.tscn" id="2_epr7x"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_365ag"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_ifns1"]
+sky_material = SubResource("ProceduralSkyMaterial_365ag")
+
+[sub_resource type="Environment" id="Environment_2j2p2"]
+background_mode = 2
+sky = SubResource("Sky_ifns1")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ejtda"]
+albedo_texture = ExtResource("1_sqopv")
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v6rby"]
+albedo_color = Color(0.991441, 0.196927, 0.146441, 1)
+
+[node name="testing_scene" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_2j2p2")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, -0.5, 15.4821, 1)
+shadow_enabled = true
+
+[node name="boxs" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
+
+[node name="floor" type="CSGBox3D" parent="boxs"]
+transform = Transform3D(958.04, 0, 0, 0, 1, 0, 0, 0, 1197.13, 0, 9.5, 0)
+material_override = SubResource("StandardMaterial3D_ejtda")
+use_collision = true
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="boxs"]
+transform = Transform3D(1, 0, 0, 0, 19.2, 0, 0, 0, 39.69, 20.5, 12.5, 0)
+material = SubResource("StandardMaterial3D_v6rby")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="boxs"]
+transform = Transform3D(2.4, 0, 0, 0, 1.2, 0, 0, 0, 2.8, 0, 10.5, 0)
+use_collision = true
+
+[node name="player" parent="." instance=ExtResource("2_epr7x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 11.5, 5.5)
